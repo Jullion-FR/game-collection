@@ -19,8 +19,8 @@
         </form>
     </div>
     <a href="#">S'incrire</a>
+    <footer>
+        <p>Game Collection - 2024 - Tous droits réservés</p>
+    </footer>
 </body>
-<footer>
-    <p>Game Collection - 2024 - Tous droits réservés</p>
-</footer>
 </html>
