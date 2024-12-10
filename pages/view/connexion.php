@@ -20,4 +20,7 @@
     </div>
     <a href="#">S'incrire</a>
 </body>
+<footer>
+    <p>Game Collection - 2024 - Tous droits réservés</p>
+</footer>
 </html>
