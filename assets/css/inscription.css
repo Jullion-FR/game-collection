@@ -1,0 +1,80 @@
+body{
+    color : white;
+    font-family: 'Barlow', sans-serif;
+    background: #211F2A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+
+.bloc {
+    background: #252836;
+    width: 600px;
+    height: 551.38px;
+    border-radius: 20px;
+    padding-left: 50px;
+    padding-top: 70px;
+    position: absolute;
+    top:10%;
+    
+}
+
+
+.form {
+    background: #2B2F40;
+    width: 520px;
+    height: 36px;
+    
+    border-radius: 5px;
+    
+}
+
+.form_bloc {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    margin-top: 10px;
+
+    font-size: 32px;
+    color : white;
+}
+
+.btn_Inscription {
+    background: #6757D6;
+    width: 106.24px;
+    height: 19px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+p{
+    margin: 0px;
+}
+
+
+input{
+    background: #2B2F40;
+    width: 520px;
+    height: 36px;
+    border: none;
+    border-radius: 5px;
+    color : white;
+}
+
+.se_connecter {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}

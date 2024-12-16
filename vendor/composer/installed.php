@@ -2,23 +2,14 @@
     'root' => array(
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'type' => 'library',
+        'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'db6b1e06a4b610d9426b001c496f34113c69ca4e',
-        'name' => '__root__',
+        'reference' => '88db036c196e98864e299b89c6db8633a9a0a3ae',
+        'name' => 'td21-6/game-collection',
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'reference' => 'db6b1e06a4b610d9426b001c496f34113c69ca4e',
-            'dev_requirement' => false,
-        ),
         'graham-campbell/result-type' => array(
             'pretty_version' => 'v1.1.3',
             'version' => '1.1.3.0',
@@ -62,6 +53,15 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-php80',
             'aliases' => array(),
             'reference' => '60328e362d4c2c802a54fcbf04f9d3fb892b4cf8',
+            'dev_requirement' => false,
+        ),
+        'td21-6/game-collection' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '88db036c196e98864e299b89c6db8633a9a0a3ae',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(
