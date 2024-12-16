@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../controller/GameController.php';
 
 try {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
@@ -22,29 +23,13 @@ try {
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Sanitize inputs
-        $name = htmlspecialchars($_POST['nom-du-jeu']);
-        $publisher = htmlspecialchars($_POST['editeur-du-jeu']);
-        $release_date = htmlspecialchars($_POST['sortie-du-jeu']);
-        $platforms = isset($_POST['plateformes']) ? implode(',', $_POST['plateformes']) : '';
-        $description = htmlspecialchars($_POST['description-du-jeu']);
-        $cover_url = htmlspecialchars($_POST['url-de-la-cover']);
-        $website_url = htmlspecialchars($_POST['url-du-site']);
+        $controller = new GameController($conn);
+        $result = $controller->handleFormSubmission($_POST);
 
-        $sql = "INSERT INTO games (name, publisher, release_date, platforms, description, cover_url, website_url) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-        if($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("sssssss", $name, $publisher, $release_date, $platforms, $description, $cover_url, $website_url);
-            
-            if ($stmt->execute()) {
-                echo "<p class='success'>Jeu ajouté avec succès!</p>";
-            } else {
-                throw new Exception("Error: " . $stmt->error);
-            }
-            $stmt->close();
-        } else {
-            throw new Exception("Error in prepare statement: " . $conn->error);
+        if ($result === "success") {
+            echo "<p class='success'>Jeu ajouté avec succès!</p>";
+        } elseif (strpos($result, "error") === 0) {
+            echo "<p class='error'>Erreur: " . substr($result, 7) . "</p>";
         }
     }
 
