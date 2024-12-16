@@ -13,5 +13,5 @@ $dbUser = $_ENV['DB_USER'];
 $dbPass = $_ENV['DB_PASS'];
 
 echo "Database Host: $dbHost";
- 
+  
 ?>
