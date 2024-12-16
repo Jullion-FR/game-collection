@@ -1,3 +1,59 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+try {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+    $dotenv->load();
+
+    $conn = new mysqli(
+        $_ENV['DB_HOST'],
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS'],
+        'game_collection' // Hardcode database name for now
+    );
+
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Sanitize inputs
+        $name = htmlspecialchars($_POST['nom-du-jeu']);
+        $publisher = htmlspecialchars($_POST['editeur-du-jeu']);
+        $release_date = htmlspecialchars($_POST['sortie-du-jeu']);
+        $platforms = isset($_POST['plateformes']) ? implode(',', $_POST['plateformes']) : '';
+        $description = htmlspecialchars($_POST['description-du-jeu']);
+        $cover_url = htmlspecialchars($_POST['url-de-la-cover']);
+        $website_url = htmlspecialchars($_POST['url-du-site']);
+
+        $sql = "INSERT INTO games (name, publisher, release_date, platforms, description, cover_url, website_url) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        if($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("sssssss", $name, $publisher, $release_date, $platforms, $description, $cover_url, $website_url);
+            
+            if ($stmt->execute()) {
+                echo "<p class='success'>Jeu ajouté avec succès!</p>";
+            } else {
+                throw new Exception("Error: " . $stmt->error);
+            }
+            $stmt->close();
+        } else {
+            throw new Exception("Error in prepare statement: " . $conn->error);
+        }
+    }
+
+} catch (Exception $e) {
+    error_log($e->getMessage());
+    echo "<p class='error'>Une erreur est survenue: " . $e->getMessage() . "</p>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -38,19 +94,19 @@
                     <legend>Plateformes</legend>
                     <div class="checkbox-group">
                         <label>
-                            <input type="checkbox" name="plateformes" value="Playstation">
+                            <input type="checkbox" name="plateformes[]" value="Playstation">
                             Playstation
                         </label>
                         <label>
-                            <input type="checkbox" name="plateformes" value="Xbox">
+                            <input type="checkbox" name="plateformes[]" value="Xbox">
                             Xbox
                         </label>
                         <label>
-                            <input type="checkbox" name="plateformes" value="Nintendo">
+                            <input type="checkbox" name="plateformes[]" value="Nintendo">
                             Nintendo
                         </label>
                         <label>
-                            <input type="checkbox" name="plateformes" value="PC">
+                            <input type="checkbox" name="plateformes[]" value="PC">
                             PC
                         </label>
                     </div>
